@@ -1,90 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Solana Ecosystem Pulse — Premium</title>
+<html lang="en" data-theme="dark">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Solana Ecosystem Pulse</title>
 <style>
-:root { --bg-primary: #0a0a0a; --bg-card: #1a1a2e; --bg-panel: #0b1220; --text-primary: #eef2ff; --text-secondary: #9aa6c1; --primary: #14f195; --secondary: #9945ff; --accent: #48d9d0; --line: #26324b; --success: #14f195; }
-[data-theme="light"] { --bg-primary: #f8fafc; --bg-card: #ffffff; --bg-panel: #f1f5f9; --text-primary: #0f172a; --text-secondary: #475569; --line: #cbd5e1; }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: radial-gradient(circle at top left, #1a1a2e 0, transparent 40%), var(--bg-primary); color: var(--text-primary); font-family: Inter, sans-serif; min-height: 100vh; }
-.container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; }
-.brand { display: flex; align-items: center; gap: 1rem; }
-.brand-logo { width: 48px; height: 48px; }
-.brand-name { font-size: 1.75rem; font-weight: 700; }
-.brand-name span { color: var(--primary); }
-.eyebrow { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
-.theme-toggle { background: var(--bg-card); border: 1px solid var(--line); color: var(--text-primary); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.875rem; }
-.metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-.card { background: var(--bg-card); border: 1px solid var(--line); border-radius: 16px; padding: 1.75rem; }
-.card:hover { transform: translateY(-2px); }
-.card h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 0.5rem; }
-.card .value { font-size: 2.25rem; font-weight: 700; }
-.card .subtitle { color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.5rem; }
-.charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; }
-.chart-card { background: var(--bg-card); border: 1px solid var(--line); border-radius: 16px; padding: 1.75rem; }
-.chart-container { display: flex; align-items: center; gap: 1.5rem; }
-.economic-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
-.economic-card { background: var(--bg-panel); border: 1px solid var(--line); border-radius: 12px; padding: 1rem; }
-.economic-card .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; }
-.economic-card .value { font-size: 1.25rem; font-weight: 700; }
-.economic-card .source { font-size: 0.75rem; color: var(--accent); }
-.alerts-section { margin: 2rem 0; }
-.source-health { margin: 2rem 0; }
-.source-health h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
-.sources-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; }
-.source-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; border-radius: 8px; font-size: 0.8125rem; }
-.source-item .dot { width: 8px; height: 8px; border-radius: 50%; }
-.source-item .dot.ok { background: var(--success); }
-.source-item .name { color: var(--text-primary); flex: 1; }
-footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--line); text-align: center; color: var(--text-secondary); font-size: 0.8125rem; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#090d14;--bg-card:#111927;--bg-elevated:#1a2332;--bg-glass:rgba(17,25,39,.72);--text:#e8edf5;--text-muted:#8899b8;--text-dim:#5a6a88;--primary:#14f195;--secondary:#9945ff;--accent:#48d9d0;--line:#1e2a3e;--line-subtle:#16202e;--success:#14f195;--warning:#ffbd69;--danger:#ff6685;--radius:16px;--radius-sm:10px;--radius-lg:24px;--font:Inter,SF Pro Display,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;--mono:SF Mono,Cascadia Code,JetBrains Mono,ui-monospace,monospace;--shadow:0 8px 32px rgba(0,0,0,.4);--transition:200ms cubic-bezier(.4,0,.2,1);--ease-out:cubic-bezier(.16,1,.3,1)}
+[data-theme=light]{--bg:#f4f6fa;--bg-card:#fff;--bg-elevated:#edf0f7;--bg-glass:rgba(255,255,255,.78);--text:#0f172a;--text-muted:#55657e;--text-dim:#8a9bb5;--line:#dce2ed;--line-subtle:#e8ecf3;--shadow:0 8px 32px rgba(0,0,0,.08)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;overflow-x:hidden}
+.container{max-width:1280px;margin:0 auto;padding:clamp(1rem,4vw,3rem)}
+.bg-orb{position:fixed;top:-40%;left:-20%;width:80%;height:80%;background:radial-gradient(circle at 30% 40%,rgba(20,241,149,.06),transparent 60%);pointer-events:none;z-index:0;animation:orb-drift 20s ease-in-out infinite alternate}
+.bg-orb2{position:fixed;bottom:-30%;right:-10%;width:60%;height:60%;background:radial-gradient(circle at 70% 60%,rgba(153,69,255,.05),transparent 60%);pointer-events:none;z-index:0;animation:orb-drift2 25s ease-in-out infinite alternate}
+@keyframes orb-drift{from{transform:translate(0,0)}to{transform:translate(5%,3%)}}
+@keyframes orb-drift2{from{transform:translate(0,0)}to{transform:translate(-4%,-2%)}}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2.5rem;position:relative;z-index:1;animation:fadeIn .6s var(--ease-out)}
+.brand{display:flex;align-items:center;gap:.875rem}
+.logo{width:44px;height:44px;flex-shrink:0}
+.brand-text .eyebrow{font-size:.625rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:2px}
+.brand-text h1{font-size:clamp(1.25rem,3vw,1.75rem);font-weight:700;letter-spacing:-.03em;line-height:1.1}
+.brand-text h1 span{color:var(--primary)}
+.header-actions{display:flex;gap:.5rem;align-items:center}
+.btn{background:var(--bg-elevated);border:1px solid var(--line);color:var(--text);padding:.4rem .9rem;border-radius:var(--radius-sm);font-size:.8125rem;cursor:pointer;transition:all var(--transition);font-family:var(--font);display:inline-flex;align-items:center;gap:.4rem}
+.btn:hover{background:var(--line);border-color:var(--text-muted);transform:translateY(-1px)}
+.btn-primary{background:var(--primary);color:#000;border-color:var(--primary);font-weight:600}
+.btn-primary:hover{background:#10d77e;border-color:#10d77e}
+.status-bar{display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;position:relative;z-index:1;animation:fadeIn .6s var(--ease-out) .1s both}
+.status-pill{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .75rem;border-radius:999px;font-size:.75rem;background:var(--bg-glass);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line-subtle);color:var(--text-muted);font-family:var(--mono)}
+.status-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--success);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.3}}
+.section-label{font-size:.6875rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);font-weight:600;margin-bottom:.75rem;position:relative;z-index:1;animation:fadeIn .6s var(--ease-out) .3s both}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:1.5rem;position:relative;z-index:1}
+.card{background:var(--bg-glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line-subtle);border-radius:var(--radius);padding:1.5rem;transition:all var(--ease-out) .3s;opacity:0;transform:translateY(16px)}
+.card.visible{opacity:1;transform:translateY(0)}
+.card:hover{border-color:var(--line);transform:translateY(-4px);box-shadow:var(--shadow);background:var(--bg-card)}
+.card label{font-size:.6875rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:.35rem;font-weight:600;display:block}
+.card .value{font-size:clamp(1.5rem,3vw,2.25rem);font-weight:700;letter-spacing:-.03em;line-height:1.1}
+.card .sub{font-size:.75rem;color:var(--text-dim);margin-top:.25rem}
+.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:1rem;margin-bottom:1.5rem;position:relative;z-index:1}
+.chart-card{background:var(--bg-glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line-subtle);border-radius:var(--radius);padding:1.5rem;transition:all var(--ease-out) .3s;opacity:0;transform:translateY(16px)}
+.chart-card.visible{opacity:1;transform:translateY(0)}
+.chart-card:hover{border-color:var(--line);box-shadow:var(--shadow)}
+.chart-card h3{font-size:.6875rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:1rem;font-weight:600}
+.chart-body{display:flex;align-items:center;gap:1.25rem}
+.chart-legend{font-size:.8125rem;color:var(--text-muted);line-height:1.5}
+.chart-legend strong{color:var(--text);font-weight:600;font-size:1.125rem}
+.chart-svg{flex-shrink:0;max-width:160px;height:auto}
+.ring-bg{stroke:var(--line);fill:none}
+.ring-fg{stroke:var(--primary);fill:none;stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;animation:ring-fill 1.2s var(--ease-out) .4s both}
+.line-chart{width:100%;height:90px}
+.line-path{fill:none;stroke:url(#tpsG1);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.line-area{fill:url(#tpsG2);opacity:.25}
+.chart-grid-line{stroke:var(--line-subtle);stroke-width:.5;stroke-dasharray:3 3}
+.gauge-bg{stroke:var(--line);fill:none;stroke-linecap:round}
+.gauge-fg{stroke:var(--primary);fill:none;stroke-linecap:round;animation:gauge-fill 1s var(--ease-out) .3s both}
+.tooltip{position:relative;cursor:help}
+.tooltip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--bg-elevated);border:1px solid var(--line);color:var(--text);padding:.35rem .65rem;border-radius:6px;font-size:.6875rem;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10}
+.tooltip:hover::after{opacity:1}
+.economics{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.5rem;position:relative;z-index:1}
+.econ-card{background:var(--bg-glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line-subtle);border-radius:var(--radius-sm);padding:1rem 1.25rem;transition:all var(--ease-out) .3s;opacity:0;transform:translateY(12px)}
+.econ-card.visible{opacity:1;transform:translateY(0)}
+.econ-card:hover{border-color:var(--line);background:var(--bg-card);transform:translateY(-2px)}
+.econ-card label{font-size:.625rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);display:block;margin-bottom:.15rem}
+.econ-card .value{font-size:1.125rem;font-weight:700;letter-spacing:-.02em}
+.econ-card .src{font-size:.625rem;color:var(--text-dim);margin-top:.15rem}
+.econ-card .change{font-size:.75rem;font-weight:600;margin-top:.1rem}
+.alerts-section{position:relative;z-index:1;margin-bottom:1.5rem;animation:fadeIn .6s var(--ease-out) .5s both}
+.alerts-section h2{font-size:.6875rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:.75rem;font-weight:600}
+.alerts-grid{display:grid;gap:.5rem}
+.alert-ok,.alert-warning,.alert-critical{display:flex;align-items:start;gap:.75rem;padding:.875rem 1rem;border-radius:var(--radius-sm);background:var(--bg-glass);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line-subtle)}
+.alert-ok{border-left:3px solid var(--success)}
+.alert-warning{border-left:3px solid var(--warning)}
+.alert-critical{border-left:3px solid var(--danger)}
+.alert-icon{font-size:1.125rem;line-height:1.4}
+.alert-ok .alert-icon{color:var(--success)}
+.alert-warning .alert-icon{color:var(--warning)}
+.alert-critical .alert-icon{color:var(--danger)}
+.alert-ok strong,.alert-warning strong,.alert-critical strong{font-size:.8125rem;font-weight:600}
+.alert-ok p,.alert-warning p,.alert-critical p{font-size:.75rem;color:var(--text-dim);margin-top:2px}
+.source-section{position:relative;z-index:1;animation:fadeIn .6s var(--ease-out) .55s both}
+.source-section h2{font-size:.6875rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:.75rem;font-weight:600}
+.sources{display:flex;gap:.75rem;flex-wrap:wrap}
+.source-item{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .75rem;border-radius:999px;font-size:.75rem;background:var(--bg-glass);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line-subtle);font-family:var(--mono)}
+.source-item .dot{width:6px;height:6px;border-radius:50%;background:var(--success)}
+.source-item .src-name{color:var(--text-muted)}
+.source-item .src-status{color:var(--text-dim);text-transform:capitalize}
+.footer{text-align:center;padding:2rem 0 1rem;font-size:.6875rem;color:var(--text-dim);position:relative;z-index:1;animation:fadeIn .6s var(--ease-out) .6s both;border-top:1px solid var(--line-subtle);margin-top:2rem;display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap}
+.footer span{color:var(--text-muted)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:640px){.charts{grid-template-columns:1fr}.metrics{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
+<div class="bg-orb"></div>
+<div class="bg-orb2"></div>
 <div class="container">
-  <header>
-    <div class="brand">
-      <svg class="brand-logo" viewBox="0 0 200 200">
-        <circle cx="100" cy="100" r="90" fill="url(#logoGradient)"></circle>
-        <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" fill="white" font-family="Inter" font-size="120" font-weight="700" style="paint-order: stroke; stroke: white; stroke-width: 6;">S</text>
-        <defs><linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#14F195;"></stop><stop offset="100%" style="stop-color:#9945FF;"></stop></linearGradient></defs>
-      </svg>
-      <div><div class="eyebrow">Live · Dependency-free · Auditable</div><div class="brand-name">Solana <span>Ecosystem</span> Pulse</div></div>
-    </div>
-    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
-  </header>
-  <section class="metrics-grid">
-    <div class="card"><h3>Network Health</h3><div class="value">3,521.71</div><div class="subtitle">Observed TPS</div></div>
-    <div class="card"><h3>Current Slot</h3><div class="value">437,031,824</div><div class="subtitle">Epoch 1,011 (64.77%)</div></div>
-    <div class="card"><h3>Validators</h3><div class="value">689</div><div class="subtitle">14 delinquent</div></div>
-    <div class="card"><h3>Delinquent Stake</h3><div class="value">0.15%</div><div class="subtitle">Share of stake</div></div>
-    <div class="card"><h3>Circulating Supply</h3><div class="value">581.19M</div><div class="subtitle">Total: 631.50M SOL</div></div>
-    <div class="card"><h3>Source</h3><div class="value">Mainnet RPC</div><div class="subtitle">https://api.mainnet-beta.solana.com</div></div>
-  </section>
-  <section class="charts-section">
-    <div class="charts-grid">
-      <div class="chart-card"><h3>TPS Trend</h3><div class="chart-container"><svg class="chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none"><path d="M10,100 Q40,60 70,80 T130,40 T190,70 T250,30 T290,60" fill="none" stroke="#14F195" stroke-width="2"></path></svg><div class="chart-details"><div class="label">Current</div><div class="value">3,521.71</div></div></div></div>
-      <div class="chart-card"><h3>Validators</h3><div class="chart-container"><svg class="chart-svg" viewBox="0 0 160 120" preserveAspectRatio="none"><circle cx="80" cy="80" r="70" fill="#14F195" opacity="0.6"></circle><text x="80" y="80" text-anchor="middle" fill="white" font-size="24">689</text></svg><div class="chart-details"><div class="label">Active</div><div class="value">689</div></div></div></div>
-      <div class="chart-card"><h3>DeFi TVL</h3><div class="chart-container"><svg class="chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none"><path d="M10,100 C50,90 80,80 120,60 T200,40 T290,50" fill="none" stroke="#9945FF" stroke-width="2"></path></svg><div class="chart-details"><div class="label">TVL</div><div class="value">$4.76B</div></div></div></div>
-    </div>
-  </section>
-  <section><div class="card" style="background:linear-gradient(135deg,#1a1a2e 0,#16213e 100%);"><h2 style="margin-bottom:1rem;">Economic & Ecosystem Pulse</h2><div class="economic-grid">
-      <div class="economic-card"><div class="label">SOL Price</div><div class="value">$74.00</div><div class="source" style="color:#14f195">+0.52%</div></div>
-      <div class="economic-card"><div class="label">DeFi TVL</div><div class="value">$4.76B</div><div class="source">DeFiLlama</div></div>
-      <div class="economic-card"><div class="label">Stablecoin Supply</div><div class="value">$15.72B</div><div class="source">DeFiLlama</div></div>
-      <div class="economic-card"><div class="label">DEX Volume (24h)</div><div class="value">$1.34B</div><div class="source">DeFiLlama</div></div>
-      <div class="economic-card"><div class="label">DEX Volume (7d)</div><div class="value">$11.46B</div><div class="source">DeFiLlama</div></div>
-      <div class="economic-card"><div class="label">DEX Change (24h)</div><div class="value" style="color:#14f195">+3.22%</div><div class="source">DeFiLlama</div></div>
-  </div></div></section>
-  <section class="alerts-section"><h2 style="margin-bottom:1rem;">Explainable Alerts</h2><ul style="list-style:none;"><li style="padding:1rem;border-radius:12px;background:var(--bg-panel);border:1px solid var(--line);"><strong style="color:var(--success);">Healthy Snapshot</strong><p style="color:var(--text-secondary);">No configured thresholds were crossed.</p></li></ul></section>
-  <section class="source-health"><h3>Source Health</h3><div class="sources-list"><div class="source-item"><span class="dot ok"></span><span class="name">price</span><span class="status">ok</span></div><div class="source-item"><span class="dot ok"></span><span class="name">chains</span><span class="status">ok</span></div><div class="source-item"><span class="dot ok"></span><span class="name">stablecoins</span><span class="status">ok</span></div><div class="source-item"><span class="dot ok"></span><span class="name">dex</span><span class="status">ok</span></div></div></section>
-  <footer><p>Solana Ecosystem Pulse • 2026-08-03T19:37:12Z • dependency-free • auditable</p></footer>
+<header class="header">
+<div class="brand">
+<svg class="logo" viewBox="0 0 200 200" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0" stop-color="#14F195"/><stop offset="100%" stop-color="#9945FF"/></linearGradient></defs><circle cx="100" cy="100" r="90" fill="url(#lg)"/><text x="100" y="120" text-anchor="middle" fill="white" font-size="110" font-weight="700" font-family="Inter,sans-serif">S</text></svg>
+<div class="brand-text"><div class="eyebrow">Live &middot; Dependency-free &middot; Auditable</div><h1>Solana <span>Ecosystem</span> Pulse</h1></div>
+</div>
+<div class="header-actions"><button class="btn" onclick="toggleTheme()" title="Toggle theme">&#127763;</button><button class="btn" onclick="exportJson()" title="Export snapshot">&#11015;</button><button class="btn btn-primary" onclick="location.reload()" title="Refresh">&#8635; Refresh</button></div>
+</header>
+<div class="status-bar"><span class="status-pill"><span class="dot"></span>Live</span><span class="status-pill">2026-08-03T20:07:07Z</span><span class="status-pill">Slot 437,036,080</span><span class="status-pill">Epoch 1,011</span></div>
+<div class="section-label">Network Health</div>
+<section class="metrics" id="metrics">
+<div class="card" data-delay="0"><label>Network TPS</label><div class="value" data-count="3750">3,750</div><div class="sub">60-second RPC samples</div></div>
+<div class="card" data-delay="50"><label>Current Slot</label><div class="value">437,036,080</div><div class="sub">Epoch 1,011 &middot; 65.8% complete</div></div>
+<div class="card" data-delay="100"><label>Active Validators</label><div class="value">689</div><div class="sub">14 delinquent &middot; 98% participation</div></div>
+<div class="card" data-delay="150"><label>Delinquent Stake</label><div class="value">0.15%</div><div class="sub">Share of activated stake</div></div>
+<div class="card" data-delay="200"><label>Circulating Supply</label><div class="value">581.19M</div><div class="sub">Total: 631.50M SOL</div></div>
+<div class="card" data-delay="250"><label>Epoch Progress</label><div class="value">65.8%</div><div class="sub">Epoch 1,011 &middot; <span class="tooltip" data-tip="~5.0h remaining">~3.3h left</span></div></div>
+</section>
+<div class="section-label">Charts &amp; Analytics</div>
+<section class="charts" id="charts">
+<div class="chart-card" data-delay="100"><h3 class="tooltip" data-tip="TPS over last samples">TPS Trend</h3><div class="chart-body" style="flex-direction:column;align-items:stretch"><svg class="line-chart" viewBox="0 0 300 90" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id='tpsG1' x1='0' y1='0' x2='1' y2='0'><stop offset='0%' stop-color='#14f195'/><stop offset='100%' stop-color='#9945ff'/></linearGradient><linearGradient id='tpsG2' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='#14f195' stop-opacity='.2'/><stop offset='100%' stop-color='#14f195' stop-opacity='0'/></linearGradient></defs><line class='chart-grid-line' x1='0' y1='75' x2='300' y2='75'/><line class='chart-grid-line' x1='0' y1='45' x2='300' y2='45'/><line class='chart-grid-line' x1='0' y1='15' x2='300' y2='15'/><path class='line-area' d='M0,70 Q25,65 50,60 T100,45 T150,30 T200,35 T250,20 T300,25 L300,90 L0,90 Z'/><path class='line-path' d='M0,70 Q25,65 50,60 T100,45 T150,30 T200,35 T250,20 T300,25'/></svg><div style="display:flex;justify-content:space-between;align-items:center"><span class="chart-legend"><strong>3,750</strong> Current</span><span class="chart-legend" style="font-size:.6875rem">Based on recent samples</span></div></div></div>
+<div class="chart-card" data-delay="150"><h3>Validators &amp; Epoch</h3><div class="chart-body" style="gap:.75rem"><div style="text-align:center"><svg class="chart-svg" viewBox="0 0 100 100" style="max-width:130px"><circle class="ring-bg" cx="50" cy="50" r="36" stroke-width="8"/><circle class="ring-fg" cx="50" cy="50" r="36" stroke-width="8" stroke-dasharray="226.2" stroke-dashoffset="226.2"/><text x="50" y="52" text-anchor="middle" fill="currentColor" font-size="18" font-weight="700">98%</text></svg><div class="chart-legend" style="text-align:center;font-size:.6875rem"><strong>689</strong> Active &middot; 14 delinquent</div></div><div style="text-align:center"><svg width="120" height="70" viewBox="0 0 120 70"><path class="gauge-bg" d="M22.0,68.0 A38,38 0 0,1 98.0,68.0" stroke-width="10"/><path class="gauge-fg" d="M22.0,68.0 A38,38 0 0,1 98.0,68.0" stroke-width="10" stroke-dasharray="238.8" stroke-dashoffset="238.8"/><text x="60" y="60" text-anchor="middle" fill="currentColor" font-size="16" font-weight="700">65.8%</text></svg><div class="chart-legend" style="text-align:center;font-size:.6875rem"><strong>Epoch</strong> 1,011</div></div></div></div>
+<div class="chart-card" data-delay="200"><h3 class="tooltip" data-tip="Total Value Locked across Solana DeFi">DeFi TVL &amp; DEX Activity</h3><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem"><span class="chart-legend"><strong>4.76B</strong> TVL</span><span class="chart-legend" style="font-size:.6875rem;color:var(--text-dim)">DeFiLlama</span></div><svg width="100%%" height="36" viewBox="0 0 300 36" preserveAspectRatio="none" style="border-radius:6px"><rect x="0" y="0" width="300" height="36" fill="url(#tpsG1)" rx="6"/><text x="150" y="23" text-anchor="middle" fill="white" font-size="12" font-weight="600">4.76B</text></svg><div style="display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-top:.5rem"><span class="chart-legend" style="font-size:.6875rem">DEX 24h: <strong>1.34B</strong></span><span class="chart-legend" style="font-size:.6875rem">7d: <strong>11.46B</strong></span><span class="chart-legend" style="font-size:.6875rem;color:#14f195">+3.22%</span></div></div>
+</section>
+<div class="section-label">Economic &amp; Ecosystem Pulse</div>
+<section class="economics" id="economics">
+<div class="econ-card" data-delay="50"><label>SOL Price</label><div class="value" style="color:#14f195">$73.93</div><div class="change" style="color:#14f195">↑ +0.51%</div><div class="src">CoinGecko</div></div>
+<div class="econ-card" data-delay="100"><label>DeFi TVL</label><div class="value">$4.76B</div><div class="src">DeFiLlama</div></div>
+<div class="econ-card" data-delay="150"><label>Stablecoin Supply</label><div class="value">$15.72B</div><div class="src">DeFiLlama</div></div>
+<div class="econ-card" data-delay="200"><label>DEX Volume 24h</label><div class="value">$1.34B</div><div class="src">DeFiLlama</div></div>
+<div class="econ-card" data-delay="250"><label>DEX Volume 7d</label><div class="value">$11.46B</div><div class="src">DeFiLlama</div></div>
+<div class="econ-card" data-delay="300"><label>DEX Change 24h</label><div class="value" style="color:#14f195">+3.22%</div><div class="src">DeFiLlama</div></div>
+</section>
+<div class="alerts-section"><h2>System Alerts</h2><div class="alerts-grid">
+<div class="alert-ok"><span class="alert-icon">✓</span><div><strong>All Systems Normal</strong><p>No configured thresholds were crossed. ​<span class="tooltip" data-tip="Thresholds: TPS < 2000, delinquent stake > 5%">鐲</span></p></div></div>
+</div></div>
+<div class="source-section"><h2>Source Health</h2><div class="sources">
+<div class="source-item tooltip" data-tip="https://api.coingecko.com/api/v3/simple/price?ids=solana&amp;vs_currencies=usd&amp;include_24hr_change=true"><span class="dot"></span><span class="src-name">price</span><span class="src-status">ok</span></div>
+<div class="source-item tooltip" data-tip="https://api.llama.fi/v2/chains"><span class="dot"></span><span class="src-name">chains</span><span class="src-status">ok</span></div>
+<div class="source-item tooltip" data-tip="https://stablecoins.llama.fi/stablecoinchains"><span class="dot"></span><span class="src-name">stablecoins</span><span class="src-status">ok</span></div>
+<div class="source-item tooltip" data-tip="https://api.llama.fi/overview/dexs/Solana?excludeTotalDataChart=true&amp;excludeTotalDataChartBreakdown=true"><span class="dot"></span><span class="src-name">dex</span><span class="src-status">ok</span></div>
+</div></div>
+<footer class="footer">
+<span>Schema solpulse/v1</span>
+<span>2026-08-03T20:07:07Z</span>
+<span>Dependency-free</span>
+<span>Auditable</span>
+</footer>
 </div>
 <script>
-function toggleTheme() { var c = document.documentElement.getAttribute('data-theme'); var n = c === 'light' ? 'dark' : 'light'; document.documentElement.setAttribute('data-theme', n); localStorage.setItem('solana-dashboard-theme', n); }
-(function() { var s = localStorage.getItem('solana-dashboard-theme'); if (s) document.documentElement.setAttribute('data-theme', s); })();
-</script>
+(function(){var h=document.documentElement;window.toggleTheme=function(){var t=h.getAttribute('data-theme')==='light'?'dark':'light';h.setAttribute('data-theme',t);try{localStorage.setItem('solpulse-theme',t)}catch(e){}};try{var s=localStorage.getItem('solpulse-theme');if(s)h.setAttribute('data-theme',s)}catch(e){}window.exportJson=function(){var data={&quot;schema_version&quot;: &quot;solpulse/v1&quot;, &quot;generated_at&quot;: &quot;2026-08-03T20:07:07Z&quot;, &quot;source&quot;: &quot;https://api.mainnet-beta.solana.com&quot;, &quot;metrics&quot;: {&quot;slot&quot;: 437036080, &quot;epoch&quot;: 1011, &quot;epoch_progress_pct&quot;: 65.76, &quot;tps&quot;: 3750.32, &quot;validators_active&quot;: 689, &quot;validators_delinquent&quot;: 14, &quot;delinquent_stake_pct&quot;: 0.15, &quot;supply_total_sol&quot;: 631502941.21, &quot;supply_circulating_sol&quot;: 581192687.87}, &quot;alerts&quot;: [], &quot;economics&quot;: {&quot;metrics&quot;: {&quot;sol_price_usd&quot;: 73.93, &quot;sol_price_change_24h_pct&quot;: 0.51, &quot;defi_tvl_usd&quot;: 4761029889.82, &quot;stablecoin_supply_usd&quot;: 15716522855.95, &quot;dex_volume_24h_usd&quot;: 1342682592.96, &quot;dex_volume_7d_usd&quot;: 11463328105.46, &quot;dex_volume_change_24h_pct&quot;: 3.22}, &quot;sources&quot;: [{&quot;name&quot;: &quot;price&quot;, &quot;url&quot;: &quot;https://api.coingecko.com/api/v3/simple/price?ids=solana&amp;vs_currencies=usd&amp;include_24hr_change=true&quot;, &quot;status&quot;: &quot;ok&quot;}, {&quot;name&quot;: &quot;chains&quot;, &quot;url&quot;: &quot;https://api.llama.fi/v2/chains&quot;, &quot;status&quot;: &quot;ok&quot;}, {&quot;name&quot;: &quot;stablecoins&quot;, &quot;url&quot;: &quot;https://stablecoins.llama.fi/stablecoinchains&quot;, &quot;status&quot;: &quot;ok&quot;}, {&quot;name&quot;: &quot;dex&quot;, &quot;url&quot;: &quot;https://api.llama.fi/overview/dexs/Solana?excludeTotalDataChart=true&amp;excludeTotalDataChartBreakdown=true&quot;, &quot;status&quot;: &quot;ok&quot;}]}};var b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='solpulse-snapshot.json';a.click();URL.revokeObjectURL(a.href)};var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var el=e.target;var d=parseInt(el.getAttribute('data-delay'))||0;setTimeout(function(){el.classList.add('visible')},d);io.unobserve(el)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.card,.chart-card,.econ-card').forEach(function(el){io.observe(el)});var co=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var el=e.target;var t=parseFloat(el.getAttribute('data-count'));if(isNaN(t))return;var c=0;var st=Math.max(1,t/50);var ti=setInterval(function(){c+=st;if(c>=t){c=t;clearInterval(ti)}el.textContent=Math.round(c).toLocaleString()},16);co.unobserve(el)}})},{threshold:.5});document.querySelectorAll('[data-count]').forEach(function(el){co.observe(el)});})();</script>
 </body>
 </html>
