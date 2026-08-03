@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Solana Ecosystem Pulse — Premium</title>
+<style>
+:root { --bg-primary: #0a0a0a; --bg-card: #1a1a2e; --bg-panel: #0b1220; --text-primary: #eef2ff; --text-secondary: #9aa6c1; --primary: #14f195; --secondary: #9945ff; --accent: #48d9d0; --line: #26324b; --success: #14f195; }
+[data-theme="light"] { --bg-primary: #f8fafc; --bg-card: #ffffff; --bg-panel: #f1f5f9; --text-primary: #0f172a; --text-secondary: #475569; --line: #cbd5e1; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: radial-gradient(circle at top left, #1a1a2e 0, transparent 40%), var(--bg-primary); color: var(--text-primary); font-family: Inter, sans-serif; min-height: 100vh; }
+.container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; }
+.brand { display: flex; align-items: center; gap: 1rem; }
+.brand-logo { width: 48px; height: 48px; }
+.brand-name { font-size: 1.75rem; font-weight: 700; }
+.brand-name span { color: var(--primary); }
+.eyebrow { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.theme-toggle { background: var(--bg-card); border: 1px solid var(--line); color: var(--text-primary); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.875rem; }
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+.card { background: var(--bg-card); border: 1px solid var(--line); border-radius: 16px; padding: 1.75rem; }
+.card:hover { transform: translateY(-2px); }
+.card h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 0.5rem; }
+.card .value { font-size: 2.25rem; font-weight: 700; }
+.card .subtitle { color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.5rem; }
+.charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; }
+.chart-card { background: var(--bg-card); border: 1px solid var(--line); border-radius: 16px; padding: 1.75rem; }
+.chart-container { display: flex; align-items: center; gap: 1.5rem; }
+.economic-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+.economic-card { background: var(--bg-panel); border: 1px solid var(--line); border-radius: 12px; padding: 1rem; }
+.economic-card .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; }
+.economic-card .value { font-size: 1.25rem; font-weight: 700; }
+.economic-card .source { font-size: 0.75rem; color: var(--accent); }
+.alerts-section { margin: 2rem 0; }
+.source-health { margin: 2rem 0; }
+.source-health h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+.sources-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; }
+.source-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; border-radius: 8px; font-size: 0.8125rem; }
+.source-item .dot { width: 8px; height: 8px; border-radius: 50%; }
+.source-item .dot.ok { background: var(--success); }
+.source-item .name { color: var(--text-primary); flex: 1; }
+footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--line); text-align: center; color: var(--text-secondary); font-size: 0.8125rem; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="brand">
+      <svg class="brand-logo" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="url(#logoGradient)"></circle>
+        <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" fill="white" font-family="Inter" font-size="120" font-weight="700" style="paint-order: stroke; stroke: white; stroke-width: 6;">S</text>
+        <defs><linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#14F195;"></stop><stop offset="100%" style="stop-color:#9945FF;"></stop></linearGradient></defs>
+      </svg>
+      <div><div class="eyebrow">Live · Dependency-free · Auditable</div><div class="brand-name">Solana <span>Ecosystem</span> Pulse</div></div>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+  </header>
+  <section class="metrics-grid">
+    <div class="card"><h3>Network Health</h3><div class="value">4,014.59</div><div class="subtitle">Observed TPS</div></div>
+    <div class="card"><h3>Current Slot</h3><div class="value">437,011,949</div><div class="subtitle">Epoch 1,011 (60.11%)</div></div>
+    <div class="card"><h3>Validators</h3><div class="value">691</div><div class="subtitle">11 delinquent</div></div>
+    <div class="card"><h3>Delinquent Stake</h3><div class="value">0.13%</div><div class="subtitle">Share of stake</div></div>
+    <div class="card"><h3>Circulating Supply</h3><div class="value">581.08M</div><div class="subtitle">Total: 631.38M SOL</div></div>
+    <div class="card"><h3>Source</h3><div class="value">Mainnet RPC</div><div class="subtitle">api.mainnet-beta.solana.com</div></div>
+  </section>
+  <section class="charts-section">
+    <div class="charts-grid">
+      <div class="chart-card"><h3>TPS Trend</h3><div class="chart-container"><svg class="chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none"><path d="M10,100 Q40,60 70,80 T130,40 T190,70 T250,30 T290,60" fill="none" stroke="#14F195" stroke-width="2"></path></svg><div class="chart-details"><div class="label">Current</div><div class="value">4,014.59</div></div></div></div>
+      <div class="chart-card"><h3>Validators</h3><div class="chart-container"><svg class="chart-svg" viewBox="0 0 160 120" preserveAspectRatio="none"><circle cx="80" cy="80" r="70" fill="#14F195" opacity="0.6"></circle><text x="80" y="80" text-anchor="middle" fill="white" font-size="24">691</text></svg><div class="chart-details"><div class="label">Active</div><div class="value">691</div></div></div></div>
+      <div class="chart-card"><h3>DeFi TVL</h3><div class="chart-container"><svg class="chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none"><path d="M10,100 C50,90 80,80 120,60 T200,40 T290,50" fill="none" stroke="#9945FF" stroke-width="2"></path></svg><div class="chart-details"><div class="label">TVL</div><div class="value">$4.75B</div></div></div></div>
+    </div>
+  </section>
+  <section><div class="card" style="background:linear-gradient(135deg,#1a1a2e 0,#16213e 100%);"><h2 style="margin-bottom:1rem;">Economic & Ecosystem Pulse</h2><div class="economic-grid">
+      <div class="economic-card"><div class="label">SOL Price</div><div class="value">$73.54</div><div class="source" style="color:#14f195">+0.49%</div></div>
+      <div class="economic-card"><div class="label">DeFi TVL</div><div class="value">$4.75B</div><div class="source">DeFiLlama</div></div>
+      <div class="economic-card"><div class="label">Stablecoin Supply</div><div class="value">$15.64B</div><div class="source">DeFiLlama</div></div>
+      <div class="economic-card"><div class="label">DEX Volume (24h)</div><div class="value">$1.34B</div><div class="source">DeFiLlama</div></div>
+      <div class="economic-card"><div class="label">DEX Volume (7d)</div><div class="value">$11.46B</div><div class="source">DeFiLlama</div></div>
+      <div class="economic-card"><div class="label">DEX Change (24h)</div><div class="value" style="color:#14f195">+3.22%</div><div class="source">DeFiLlama</div></div>
+  </div></div></section>
+  <section class="alerts-section"><h2 style="margin-bottom:1rem;">Explainable Alerts</h2><ul style="list-style:none;"><li style="padding:1rem;border-radius:12px;background:var(--bg-panel);border:1px solid var(--line);"><strong style="color:var(--success);">Healthy Snapshot</strong><p style="color:var(--text-secondary);">No configured thresholds were crossed.</p></li></ul></section>
+  <section class="source-health"><h3>Source Health</h3><div class="sources-list">
+      <div class="source-item"><span class="dot ok"></span><span class="name">price</span><span class="status">ok</span></div>
+      <div class="source-item"><span class="dot ok"></span><span class="name">chains</span><span class="status">ok</span></div>
+      <div class="source-item"><span class="dot ok"></span><span class="name">stablecoins</span><span class="status">ok</span></div>
+      <div class="source-item"><span class="dot ok"></span><span class="name">dex</span><span class="status">ok</span></div>
+    </div></section>
+  <footer><p>Solana Ecosystem Pulse • 2026-08-03T17:19:24Z • dependency-free • auditable</p></footer>
+</div>
+<script>
+function toggleTheme() { var c = document.documentElement.getAttribute('data-theme'); var n = c === 'light' ? 'dark' : 'light'; document.documentElement.setAttribute('data-theme', n); localStorage.setItem('solana-dashboard-theme', n); }
+(function() { var s = localStorage.getItem('solana-dashboard-theme'); if (s) document.documentElement.setAttribute('data-theme', s); })();
+</script>
+</body>
+</html>

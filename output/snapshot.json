@@ -6,8 +6,8 @@
       "dex_volume_24h_usd": 1342682592.96,
       "dex_volume_7d_usd": 11463328105.46,
       "dex_volume_change_24h_pct": 3.22,
-      "sol_price_change_24h_pct": 0.5,
-      "sol_price_usd": 73.54,
+      "sol_price_change_24h_pct": 0.43,
+      "sol_price_usd": 73.49,
       "stablecoin_supply_usd": 15640394667.93
     },
     "sources": [
@@ -33,15 +33,15 @@
       }
     ]
   },
-  "generated_at": "2026-08-03T17:15:59Z",
+  "generated_at": "2026-08-03T17:19:24Z",
   "metrics": {
     "delinquent_stake_pct": 0.13,
     "epoch": 1011,
-    "epoch_progress_pct": 60.17,
-    "slot": 437011949,
-    "supply_circulating_sol": 581192792.29,
-    "supply_total_sol": 631503045.63,
-    "tps": 4014.59,
+    "epoch_progress_pct": 60.29,
+    "slot": 437012435,
+    "supply_circulating_sol": 581192790.2,
+    "supply_total_sol": 631503043.54,
+    "tps": 3976.68,
     "validators_active": 691,
     "validators_delinquent": 12
   },
