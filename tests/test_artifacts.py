@@ -30,7 +30,7 @@ class WriteArtifactsTests(unittest.TestCase):
 
             paths = write_artifacts(snapshot, output)
 
-            self.assertEqual(set(paths), {"json", "markdown", "html"})
+            self.assertEqual(set(paths), {"json", "markdown", "html", "premium"})
             self.assertEqual(json.loads(paths["json"].read_text("utf-8")), snapshot)
             for path in paths.values():
                 self.assertTrue(path.exists())

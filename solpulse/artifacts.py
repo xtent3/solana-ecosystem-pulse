@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 from typing import Any
 
-from solpulse.render import render_html, render_json, render_markdown
+from solpulse.render import render_html, render_json, render_markdown, render_premium_html
 
 
 def _atomic_write(path: Path, content: str) -> None:
@@ -30,11 +30,13 @@ def write_artifacts(
         "json": output / "snapshot.json",
         "markdown": output / "report.md",
         "html": output / "dashboard.html",
+        "premium": output / "premium_dashboard.html",
     }
     rendered = {
         "json": render_json(snapshot),
         "markdown": render_markdown(snapshot),
         "html": render_html(snapshot),
+        "premium": render_premium_html(snapshot),
     }
     for name, path in paths.items():
         _atomic_write(path, rendered[name])

@@ -85,7 +85,7 @@ class CliTests(unittest.TestCase):
             output = Path(directory)
             self.assertEqual(
                 {path.name for path in output.iterdir()},
-                {"snapshot.json", "report.md", "dashboard.html"},
+                {"snapshot.json", "report.md", "dashboard.html", "premium_dashboard.html"},
             )
             snapshot = json.loads((output / "snapshot.json").read_text("utf-8"))
             self.assertEqual(snapshot["source"], "https://example.invalid/rpc")

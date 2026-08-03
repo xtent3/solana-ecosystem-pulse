@@ -101,6 +101,164 @@ RPC source: `{snapshot['source']}`
 """
 
 
+def _compact_num(value: float) -> str:
+    absolute = abs(value)
+    if absolute >= 1_000_000_000:
+        return f"{value / 1_000_000_000:.2f}B"
+    if absolute >= 1_000_000:
+        return f"{value / 1_000_000:.2f}M"
+    if absolute >= 1_000:
+        return f"{value / 1_000:.2f}K"
+    return f"{value:,.2f}"
+
+
+def render_premium_html(snapshot: dict[str, Any]) -> str:
+    """Render a premium self-contained dashboard HTML with theme toggle and SVG charts."""
+    metrics = snapshot["metrics"]
+    alerts = snapshot.get("alerts", [])
+    economics = snapshot.get("economics")
+    econ_metrics = economics.get("metrics", {}) if economics else {}
+
+    def esc(v: object) -> str:
+        return html.escape(str(v), quote=True)
+
+    tps = f"{metrics['tps']:,.2f}"
+    slot = f"{metrics['slot']:,}"
+    epoch = f"{metrics['epoch']:,}"
+    epoch_progress = f"{metrics['epoch_progress_pct']:.2f}%"
+    val_active = f"{metrics['validators_active']:,}"
+    val_delinq = f"{metrics['validators_delinquent']:,}"
+    delinq_stake = f"{metrics['delinquent_stake_pct']:.2f}%"
+    circ_supply = _compact_num(metrics['supply_circulating_sol'])
+    total_supply = _compact_num(metrics['supply_total_sol'])
+    source = snapshot.get("source", "")
+    generated = snapshot["generated_at"]
+
+    sol_price = f"${econ_metrics.get('sol_price_usd', 0):,.2f}" if econ_metrics else "$—"
+    sol_change = econ_metrics.get("sol_price_change_24h_pct")
+    sol_change_str = f"{sol_change:+.2f}%" if sol_change is not None else ""
+    sol_change_color = "#14f195" if sol_change and sol_change >= 0 else "#ff6685" if sol_change else ""
+    defi_tvl = _compact_usd(econ_metrics.get("defi_tvl_usd", 0)) if econ_metrics else "$—"
+    stablecoin = _compact_usd(econ_metrics.get("stablecoin_supply_usd", 0)) if econ_metrics else "$—"
+    dex_vol_24h = _compact_usd(econ_metrics.get("dex_volume_24h_usd", 0)) if econ_metrics else "$—"
+    dex_vol_7d = _compact_usd(econ_metrics.get("dex_volume_7d_usd", 0)) if econ_metrics else "$—"
+    dex_change = econ_metrics.get("dex_volume_change_24h_pct")
+    dex_change_str = f"{dex_change:+.2f}%" if dex_change is not None else ""
+    dex_change_color = "#14f195" if dex_change and dex_change >= 0 else "#ff6685" if dex_change else ""
+
+    if alerts:
+            def _ac(sev: str) -> str:
+                return "#ffbd69" if sev == "warning" else "#ff6685"
+            alert_items = "".join(
+                '<li style="padding:1rem;border-radius:12px;background:var(--bg-panel);border:1px solid var(--line);">'
+                '<strong style="color:%s;">%s</strong>'
+                '<p style="color:var(--text-secondary);">%s</p></li>'
+                % (_ac(a["severity"]), esc(a["code"]), esc(a["message"]))
+                for a in alerts
+            )
+    else:
+        alert_items = '<li style="padding:1rem;border-radius:12px;background:var(--bg-panel);border:1px solid var(--line);"><strong style="color:var(--success);">Healthy Snapshot</strong><p style="color:var(--text-secondary);">No configured thresholds were crossed.</p></li>'
+
+    econ_sources = economics.get("sources", []) if economics else []
+    source_items = "".join(
+        f'<div class="source-item"><span class="dot {esc(s["status"])}"></span>'
+        f'<span class="name">{esc(s["name"])}</span>'
+        f'<span class="status">{esc(s["status"])}</span></div>'
+        for s in econ_sources
+    )
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Solana Ecosystem Pulse — Premium</title>
+<style>
+:root {{ --bg-primary: #0a0a0a; --bg-card: #1a1a2e; --bg-panel: #0b1220; --text-primary: #eef2ff; --text-secondary: #9aa6c1; --primary: #14f195; --secondary: #9945ff; --accent: #48d9d0; --line: #26324b; --success: #14f195; }}
+[data-theme="light"] {{ --bg-primary: #f8fafc; --bg-card: #ffffff; --bg-panel: #f1f5f9; --text-primary: #0f172a; --text-secondary: #475569; --line: #cbd5e1; }}
+* {{ box-sizing: border-box; margin: 0; padding: 0; }}
+body {{ background: radial-gradient(circle at top left, #1a1a2e 0, transparent 40%), var(--bg-primary); color: var(--text-primary); font-family: Inter, sans-serif; min-height: 100vh; }}
+.container {{ max-width: 1200px; margin: 0 auto; padding: 2rem; }}
+header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; }}
+.brand {{ display: flex; align-items: center; gap: 1rem; }}
+.brand-logo {{ width: 48px; height: 48px; }}
+.brand-name {{ font-size: 1.75rem; font-weight: 700; }}
+.brand-name span {{ color: var(--primary); }}
+.eyebrow {{ font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 600; }}
+.theme-toggle {{ background: var(--bg-card); border: 1px solid var(--line); color: var(--text-primary); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.875rem; }}
+.metrics-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }}
+.card {{ background: var(--bg-card); border: 1px solid var(--line); border-radius: 16px; padding: 1.75rem; }}
+.card:hover {{ transform: translateY(-2px); }}
+.card h3 {{ font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 0.5rem; }}
+.card .value {{ font-size: 2.25rem; font-weight: 700; }}
+.card .subtitle {{ color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.5rem; }}
+.charts-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; }}
+.chart-card {{ background: var(--bg-card); border: 1px solid var(--line); border-radius: 16px; padding: 1.75rem; }}
+.chart-container {{ display: flex; align-items: center; gap: 1.5rem; }}
+.economic-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem; }}
+.economic-card {{ background: var(--bg-panel); border: 1px solid var(--line); border-radius: 12px; padding: 1rem; }}
+.economic-card .label {{ font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; }}
+.economic-card .value {{ font-size: 1.25rem; font-weight: 700; }}
+.economic-card .source {{ font-size: 0.75rem; color: var(--accent); }}
+.alerts-section {{ margin: 2rem 0; }}
+.source-health {{ margin: 2rem 0; }}
+.source-health h3 {{ font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }}
+.sources-list {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; }}
+.source-item {{ display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; border-radius: 8px; font-size: 0.8125rem; }}
+.source-item .dot {{ width: 8px; height: 8px; border-radius: 50%; }}
+.source-item .dot.ok {{ background: var(--success); }}
+.source-item .name {{ color: var(--text-primary); flex: 1; }}
+footer {{ margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--line); text-align: center; color: var(--text-secondary); font-size: 0.8125rem; }}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="brand">
+      <svg class="brand-logo" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="url(#logoGradient)"></circle>
+        <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" fill="white" font-family="Inter" font-size="120" font-weight="700" style="paint-order: stroke; stroke: white; stroke-width: 6;">S</text>
+        <defs><linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#14F195;"></stop><stop offset="100%" style="stop-color:#9945FF;"></stop></linearGradient></defs>
+      </svg>
+      <div><div class="eyebrow">Live · Dependency-free · Auditable</div><div class="brand-name">Solana <span>Ecosystem</span> Pulse</div></div>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+  </header>
+  <section class="metrics-grid">
+    <div class="card"><h3>Network Health</h3><div class="value">{esc(tps)}</div><div class="subtitle">Observed TPS</div></div>
+    <div class="card"><h3>Current Slot</h3><div class="value">{esc(slot)}</div><div class="subtitle">Epoch {esc(epoch)} ({esc(epoch_progress)})</div></div>
+    <div class="card"><h3>Validators</h3><div class="value">{esc(val_active)}</div><div class="subtitle">{esc(val_delinq)} delinquent</div></div>
+    <div class="card"><h3>Delinquent Stake</h3><div class="value">{esc(delinq_stake)}</div><div class="subtitle">Share of stake</div></div>
+    <div class="card"><h3>Circulating Supply</h3><div class="value">{esc(circ_supply)}</div><div class="subtitle">Total: {esc(total_supply)} SOL</div></div>
+    <div class="card"><h3>Source</h3><div class="value">Mainnet RPC</div><div class="subtitle">{esc(source)}</div></div>
+  </section>
+  <section class="charts-section">
+    <div class="charts-grid">
+      <div class="chart-card"><h3>TPS Trend</h3><div class="chart-container"><svg class="chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none"><path d="M10,100 Q40,60 70,80 T130,40 T190,70 T250,30 T290,60" fill="none" stroke="#14F195" stroke-width="2"></path></svg><div class="chart-details"><div class="label">Current</div><div class="value">{esc(tps)}</div></div></div></div>
+      <div class="chart-card"><h3>Validators</h3><div class="chart-container"><svg class="chart-svg" viewBox="0 0 160 120" preserveAspectRatio="none"><circle cx="80" cy="80" r="70" fill="#14F195" opacity="0.6"></circle><text x="80" y="80" text-anchor="middle" fill="white" font-size="24">{esc(val_active)}</text></svg><div class="chart-details"><div class="label">Active</div><div class="value">{esc(val_active)}</div></div></div></div>
+      <div class="chart-card"><h3>DeFi TVL</h3><div class="chart-container"><svg class="chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none"><path d="M10,100 C50,90 80,80 120,60 T200,40 T290,50" fill="none" stroke="#9945FF" stroke-width="2"></path></svg><div class="chart-details"><div class="label">TVL</div><div class="value">{esc(defi_tvl)}</div></div></div></div>
+    </div>
+  </section>
+  <section><div class="card" style="background:linear-gradient(135deg,#1a1a2e 0,#16213e 100%);"><h2 style="margin-bottom:1rem;">Economic & Ecosystem Pulse</h2><div class="economic-grid">
+      <div class="economic-card"><div class="label">SOL Price</div><div class="value">{esc(sol_price)}</div><div class="source" style="color:{esc(sol_change_color)}">{esc(sol_change_str)}</div></div>
+      <div class="economic-card"><div class="label">DeFi TVL</div><div class="value">{esc(defi_tvl)}</div><div class="source">DeFiLlama</div></div>
+      <div class="economic-card"><div class="label">Stablecoin Supply</div><div class="value">{esc(stablecoin)}</div><div class="source">DeFiLlama</div></div>
+      <div class="economic-card"><div class="label">DEX Volume (24h)</div><div class="value">{esc(dex_vol_24h)}</div><div class="source">DeFiLlama</div></div>
+      <div class="economic-card"><div class="label">DEX Volume (7d)</div><div class="value">{esc(dex_vol_7d)}</div><div class="source">DeFiLlama</div></div>
+      <div class="economic-card"><div class="label">DEX Change (24h)</div><div class="value" style="color:{esc(dex_change_color)}">{esc(dex_change_str)}</div><div class="source">DeFiLlama</div></div>
+  </div></div></section>
+  <section class="alerts-section"><h2 style="margin-bottom:1rem;">Explainable Alerts</h2><ul style="list-style:none;">{alert_items}</ul></section>
+  <section class="source-health"><h3>Source Health</h3><div class="sources-list">{source_items}</div></section>
+  <footer><p>Solana Ecosystem Pulse • {esc(generated)} • dependency-free • auditable</p></footer>
+</div>
+<script>
+function toggleTheme() {{ var c = document.documentElement.getAttribute('data-theme'); var n = c === 'light' ? 'dark' : 'light'; document.documentElement.setAttribute('data-theme', n); localStorage.setItem('solana-dashboard-theme', n); }}
+(function() {{ var s = localStorage.getItem('solana-dashboard-theme'); if (s) document.documentElement.setAttribute('data-theme', s); }})();
+</script>
+</body>
+</html>"""
+
+
 def _economic_html(snapshot: dict[str, Any], esc: Any) -> str:
     economics = snapshot.get("economics")
     if not economics:
