@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools==75.8.0", "wheel==0.45.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "solana-ecosystem-pulse"
+version = "0.1.0"
+description = "Dependency-free Solana network and ecosystem report generator"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Manuel Pérez"}]
+dependencies = []
+
+[project.scripts]
+solpulse = "solpulse.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["solpulse*"]

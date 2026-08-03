@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+.venv-smoke/
+venv/
+smoke-output/
+.coverage
+.pytest_cache/
+*.tmp
+output/dashboard.png

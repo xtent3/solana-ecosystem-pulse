@@ -1,0 +1,50 @@
+{
+  "alerts": [],
+  "economics": {
+    "metrics": {
+      "defi_tvl_usd": 4727213398.81,
+      "dex_volume_24h_usd": 1700234001.08,
+      "dex_volume_7d_usd": 11076276640.58,
+      "dex_volume_change_24h_pct": 7.63,
+      "sol_price_change_24h_pct": -0.85,
+      "sol_price_usd": 72.83,
+      "stablecoin_supply_usd": 15655014220.52
+    },
+    "sources": [
+      {
+        "name": "price",
+        "status": "ok",
+        "url": "https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd&include_24hr_change=true"
+      },
+      {
+        "name": "chains",
+        "status": "ok",
+        "url": "https://api.llama.fi/v2/chains"
+      },
+      {
+        "name": "stablecoins",
+        "status": "ok",
+        "url": "https://stablecoins.llama.fi/stablecoinchains"
+      },
+      {
+        "name": "dex",
+        "status": "ok",
+        "url": "https://api.llama.fi/overview/dexs/Solana?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true"
+      }
+    ]
+  },
+  "generated_at": "2026-08-01T11:55:18Z",
+  "metrics": {
+    "delinquent_stake_pct": 0.13,
+    "epoch": 1010,
+    "epoch_progress_pct": 54.89,
+    "slot": 436557107,
+    "supply_circulating_sol": 581078676.93,
+    "supply_total_sol": 631376194.03,
+    "tps": 2841.59,
+    "validators_active": 693,
+    "validators_delinquent": 11
+  },
+  "schema_version": "solpulse/v1",
+  "source": "https://api.mainnet-beta.solana.com"
+}
