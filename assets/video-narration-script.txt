@@ -1,0 +1,19 @@
+---SCENE 1---
+This is Solana Ecosystem Pulse — a dependency-free, auditable network monitor built for the Zeroclaw bounty.
+
+One command, real network data, zero secrets.
+
+---SCENE 2---
+Most Solana dashboards require API keys, sign transactions, or depend on heavy frameworks. This one doesn't. It's 100% read-only, zero dependencies, and works with just Python's standard library.
+
+---SCENE 3---
+Here's the live dashboard. Real TPS from mainnet, validator health, DeFi TVL from DeFiLlama, DEX volume. Everything is timestamped and auditable. The theme toggle persists your preference. And it prints clean PDF reports for record-keeping.
+
+---SCENE 4---
+Every line is auditable. Pure Python, no external packages. The collector fetches from public RPC and CoinGecko, the renderer generates four formats from one snapshot, and 18 tests cover error handling, HTML escaping, and cross-format consistency.
+
+---SCENE 5---
+Anyone can verify this. Clone, run, get the same four artifacts. The GitHub Actions workflow refreshes the demo every six hours automatically. No setup, no config, no secrets.
+
+---SCENE 6---
+Solana Ecosystem Pulse. No API keys, no signatures, no bloat. Just real network data, rendered beautifully, and fully auditable. Check the repo — the code speaks for itself. Built for the Zeroclaw bounty.

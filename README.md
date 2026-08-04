@@ -1,6 +1,10 @@
 # Solana Ecosystem Pulse
 
 <p align="center">
+  <img src="assets/screenshot-dashboard.png" alt="Dashboard Preview" width="800">
+</p>
+
+<p align="center">
   <strong>A dependency-free, auditable Solana ecosystem monitor.</strong><br>
   Real network data · No API keys · No packages · 18/18 tests<br>
   <a href="https://xtent3.github.io/solana-ecosystem-pulse">🌐 Live Demo</a>
@@ -53,15 +57,12 @@ Open `output/premium_dashboard.html` directly, or serve it locally:
 python -m http.server 8000 --directory output
 ```
 
-Then visit `http://127.0.0.1:8000/dashboard.html`.
+Then visit `http://127.0.0.1:8000/premium_dashboard.html`.
 
 ## CLI
 
 ```bash
-python -m solpulse \
-  --endpoint https://api.mainnet-beta.solana.com \
-  --output output \
-  --timeout 30
+python -m solpulse   --endpoint https://api.mainnet-beta.solana.com   --output output   --timeout 30
 ```
 
 | Option | Default | Purpose |
@@ -80,7 +81,7 @@ python -m solpulse \
 | DeFiLlama Stablecoins API | Solana USD-pegged supply | none |
 | DeFiLlama DEX Overview API | Solana DEX volume | none |
 
-Every economic source is collected independently. If one endpoint fails, the network report and other economic metrics still render; `economics.sources` records `ok` or `error` with the endpoint and error detail.
+Every economic source is collected independently. If one endpoint fails, the network report and OTHER economic metrics still render; `economics.sources` records `ok` or `error` with the endpoint and error detail.
 
 ## Architecture
 
@@ -90,7 +91,8 @@ Solana RPC ───────► rpc.py ───────┐
 Public HTTP APIs ─► market.py ────┘         │
                                              ├─► snapshot.json
                                              ├─► report.md
-                                             └─► dashboard.html
+                                             ├─► dashboard.html
+                                             └─► premium_dashboard.html
 ```
 
 - `rpc.py`: strict JSON-RPC transport; RPC errors never become data.
@@ -98,7 +100,7 @@ Public HTTP APIs ─► market.py ────┘         │
 - `metrics.py`: unit conversion and derived network metrics.
 - `anomalies.py`: explainable threshold checks.
 - `collector.py`: creates one coherent timestamped snapshot.
-- `render.py`: renders all formats from that same snapshot and HTML-escapes external text.
+- `render.py`: renders classic HTML from that same snapshot and HTML-escapes external text.
 - `_premium.py`: premium brand renderer with SVG icons, Solana gradients, embedded base64 logos.
 - `artifacts.py`: atomically replaces output files.
 - `cli.py`: command-line orchestration.
@@ -106,6 +108,8 @@ Public HTTP APIs ─► market.py ────┘         │
 ## Automation
 
 `.github/workflows/update-pulse.yml` runs the generator every six hours and on manual dispatch. It validates the test suite first, refreshes `output/`, and commits only changed report artifacts back to the current branch. The workflow uses no secrets or paid APIs.
+
+`.github/workflows/deploy-pages.yml` deploys the premium dashboard to GitHub Pages when `main` is pushed.
 
 For local scheduling, run `python -m solpulse --output output` at any interval using Task Scheduler or cron.
 
