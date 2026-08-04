@@ -8,3 +8,5 @@ smoke-output/
 .pytest_cache/
 *.tmp
 output/dashboard.png
+solana_ecosystem_pulse.egg-info/
+__pycache__/

@@ -1,10 +1,22 @@
 # Solana Ecosystem Pulse
 
-A dependency-free, auditable Solana ecosystem report that generates the same timestamped snapshot as:
+<p align="center">
+  <strong>A dependency-free, auditable Solana ecosystem monitor.</strong><br>
+  Real network data · No API keys · No packages · 18/18 tests
+</p>
 
-- machine-readable JSON;
-- human-readable Markdown;
-- a responsive, self-contained HTML dashboard.
+---
+
+A single CLI command generates four timestamped artifacts from one coherent snapshot:
+
+| Artifact | Format | Purpose |
+|---|---|---|
+| `snapshot.json` | Machine-readable | Auditable data with schema version |
+| `report.md` | Markdown | Human-readable summary |
+| `dashboard.html` | Classic HTML | Responsive self-contained dashboard |
+| `premium_dashboard.html` | Premium HTML | Brand-styled showcase with SVG icons, Solana gradients, embedded logos |
+
+**No API keys.** **No third-party Python packages.** **No signing or transactions.** Just public data rendered beautifully.
 
 It combines direct Solana mainnet JSON-RPC data with public CoinGecko and DeFiLlama endpoints. Source failures remain visible and unavailable values are omitted rather than replaced with misleading zeroes.
 
@@ -28,12 +40,13 @@ Generated files:
 
 ```text
 output/
-├── dashboard.html
-├── report.md
-└── snapshot.json
+├── dashboard.html          # Classic dashboard
+├── premium_dashboard.html  # Premium brand-styled showcase
+├── report.md               # Human-readable summary
+└── snapshot.json           # Machine-readable auditable data
 ```
 
-Open `output/dashboard.html` directly, or serve it locally:
+Open `output/premium_dashboard.html` directly, or serve it locally:
 
 ```bash
 python -m http.server 8000 --directory output
@@ -85,6 +98,7 @@ Public HTTP APIs ─► market.py ────┘         │
 - `anomalies.py`: explainable threshold checks.
 - `collector.py`: creates one coherent timestamped snapshot.
 - `render.py`: renders all formats from that same snapshot and HTML-escapes external text.
+- `_premium.py`: premium brand renderer with SVG icons, Solana gradients, embedded base64 logos.
 - `artifacts.py`: atomically replaces output files.
 - `cli.py`: command-line orchestration.
 
