@@ -2,7 +2,8 @@
 
 <p align="center">
   <strong>A dependency-free, auditable Solana ecosystem monitor.</strong><br>
-  Real network data · No API keys · No packages · 18/18 tests
+  Real network data · No API keys · No packages · 18/18 tests<br>
+  <a href="https://xtent3.github.io/solana-ecosystem-pulse">🌐 Live Demo</a>
 </p>
 
 ---
