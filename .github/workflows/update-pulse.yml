@@ -28,6 +28,6 @@ jobs:
           fi
           git config user.name "solpulse-bot"
           git config user.email "solpulse-bot@users.noreply.github.com"
-          git add output/dashboard.html output/report.md output/snapshot.json
+          git add output/dashboard.html output/premium_dashboard.html output/report.md output/snapshot.json
           git commit -m "chore: refresh Solana ecosystem pulse"
           git push

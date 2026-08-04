@@ -132,10 +132,37 @@ def render_premium_html(snapshot):
         ".ring-bg{stroke:var(--line);fill:none}.ring-fg{stroke:url(#ringGrad);fill:none;stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset 1.3s var(--ease)}"
         "@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}"
         "@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}"
+        "@media print{"
+        ".grid-bg,.hero-actions,.btn{display:none!important}"
+        "body{background:#fff!important;color:#000!important}"
+        ".hero,.card,.econPanel{box-shadow:none!important;border:1px solid #ddd!important;background:#fff!important}"
+        "*{color:#000!important;background:#fff!important;animation:none!important;transition:none!important}"
+        "h1,h2,h3{color:#14F195!important;page-break-after:avoid}"
+        ".card,.econPanel{page-break-inside:avoid;margin-bottom:12px}"
+        "a[href]:after{content:' (' attr(href) ')';font-size:.8em}"
+        "@page{margin:2cm}"
+        "}"
     )
 
     H = []; w = H.append
-    w("<!DOCTYPE html>\n<html lang='en' data-theme='dark'>\n<head>\n<meta charset='utf-8'>\n<meta name='viewport' content='width=device-width,initial-scale=1'>\n<title>Solana Ecosystem Pulse</title>\n<style>\n")
+    
+    # Inline SVG favicon (Solana gradient circle)
+    _FAVICON_SVG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2314F195'/%3E%3Cstop offset='100%25' stop-color='%239945FF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='28' fill='url(%23g)'/%3E%3Cpath d='M20 24h24l-4 4H16zM20 32h24l-4 4H16zM20 40h24l-4 4H16z' fill='white'/%3E%3C/svg%3E"
+    
+    w("<!DOCTYPE html>\n<html lang='en' data-theme='dark'>\n<head>\n<meta charset='utf-8'>\n<meta name='viewport' content='width=device-width,initial-scale=1'>\n<title>Solana Ecosystem Pulse — Live Network Monitor</title>\n")
+    # Open Graph / Social preview meta tags
+    w("<meta name='description' content='Real-time Solana ecosystem monitor. Network TPS, validators, DeFi TVL, DEX volume. Dependency-free, auditable, no API keys.'>\n")
+    w("<meta property='og:title' content='Solana Ecosystem Pulse — Live Network Monitor'>\n")
+    w("<meta property='og:description' content='Real-time Solana ecosystem monitor with TPS, validators, DeFi TVL, and DEX volume. Built with zero dependencies — fully auditable.'>\n")
+    w("<meta property='og:type' content='website'>\n")
+    w("<meta property='og:url' content='https://xtent3.github.io/solana-ecosystem-pulse'>\n")
+    w("<meta property='og:image' content='https://raw.githubusercontent.com/xtent3/solana-ecosystem-pulse/main/assets/preview.png'>\n")
+    w("<meta name='twitter:card' content='summary_large_image'>\n")
+    w("<meta name='twitter:title' content='Solana Ecosystem Pulse'>\n")
+    w("<meta name='twitter:description' content='Dependency-free Solana monitor. 18/18 tests, zero API keys, real network data.'>\n")
+    w("<meta name='theme-color' content='#14F195'>\n")
+    w("<link rel='icon' type='image/svg+xml' href='%s'>\n" % _FAVICON_SVG)
+    w("<style>\n")
     w(CSS)
     w("</style>\n</head>\n<body>\n<div class='grid-bg'></div>\n<div class='wrap'>\n")
 
