@@ -2,13 +2,13 @@
   "alerts": [],
   "economics": {
     "metrics": {
-      "defi_tvl_usd": 4825350882.96,
+      "defi_tvl_usd": 4861737419.44,
       "dex_volume_24h_usd": 1493144029.54,
       "dex_volume_7d_usd": 10678381205.42,
       "dex_volume_change_24h_pct": 9.69,
-      "sol_price_change_24h_pct": 1.39,
-      "sol_price_usd": 76.6,
-      "stablecoin_supply_usd": 15609873459.66
+      "sol_price_change_24h_pct": 1.47,
+      "sol_price_usd": 77.22,
+      "stablecoin_supply_usd": 15609274763.85
     },
     "sources": [
       {
@@ -33,15 +33,15 @@
       }
     ]
   },
-  "generated_at": "2026-08-09T14:19:10Z",
+  "generated_at": "2026-08-09T19:52:10Z",
   "metrics": {
     "delinquent_stake_pct": 0.01,
     "epoch": 1014,
-    "epoch_progress_pct": 38.21,
-    "slot": 438213046,
-    "supply_circulating_sol": 582165980.51,
-    "supply_total_sol": 631883095.6,
-    "tps": 3773.36,
+    "epoch_progress_pct": 49.1,
+    "slot": 438260101,
+    "supply_circulating_sol": 582165754.2,
+    "supply_total_sol": 631882869.29,
+    "tps": 4435.84,
     "validators_active": 691,
     "validators_delinquent": 7
   },
