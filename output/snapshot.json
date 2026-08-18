@@ -2,13 +2,13 @@
   "alerts": [],
   "economics": {
     "metrics": {
-      "defi_tvl_usd": 4863779046.67,
+      "defi_tvl_usd": 4901670558.76,
       "dex_volume_24h_usd": 1474970358.36,
       "dex_volume_7d_usd": 10595053473.24,
       "dex_volume_change_24h_pct": 39.75,
-      "sol_price_change_24h_pct": 0.88,
-      "sol_price_usd": 76.16,
-      "stablecoin_supply_usd": 15317113991.02
+      "sol_price_change_24h_pct": 1.84,
+      "sol_price_usd": 77.18,
+      "stablecoin_supply_usd": 15357617713.37
     },
     "sources": [
       {
@@ -33,17 +33,17 @@
       }
     ]
   },
-  "generated_at": "2026-08-18T14:09:06Z",
+  "generated_at": "2026-08-18T19:40:02Z",
   "metrics": {
-    "delinquent_stake_pct": 0.2,
+    "delinquent_stake_pct": 0.01,
     "epoch": 1018,
-    "epoch_progress_pct": 68.54,
-    "slot": 440072085,
-    "supply_circulating_sol": 582895379.29,
-    "supply_total_sol": 632387638.63,
-    "tps": 5309.7,
-    "validators_active": 685,
-    "validators_delinquent": 10
+    "epoch_progress_pct": 79.58,
+    "slot": 440119792,
+    "supply_circulating_sol": 582892222.94,
+    "supply_total_sol": 632387407.67,
+    "tps": 4095.7,
+    "validators_active": 688,
+    "validators_delinquent": 7
   },
   "schema_version": "solpulse/v1",
   "source": "https://api.mainnet-beta.solana.com"
