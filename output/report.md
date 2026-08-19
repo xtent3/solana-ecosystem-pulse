@@ -1,31 +1,31 @@
 # Solana Ecosystem Pulse
 
-Generated: `2026-08-19T03:26:04Z`  
+Generated: `2026-08-19T08:05:39Z`  
 RPC source: `https://api.mainnet-beta.solana.com`
 
 ## Network snapshot
 
 | Metric | Value |
 |---|---:|
-| Slot | 440,187,030 |
-| Epoch | 1,018 |
-| Epoch progress | 95.15% |
-| Observed TPS | 3,040.92 |
-| Active validators | 688 |
-| Delinquent validators | 7 |
-| Delinquent stake | 0.01% |
-| Total supply | 632,387,123.70 SOL |
-| Circulating supply | 582,891,938.28 SOL |
+| Slot | 440,227,421 |
+| Epoch | 1,019 |
+| Epoch progress | 4.50% |
+| Observed TPS | 3,081.57 |
+| Active validators | 685 |
+| Delinquent validators | 10 |
+| Delinquent stake | 0.03% |
+| Total supply | 632,514,714.94 SOL |
+| Circulating supply | 583,007,462.38 SOL |
 
 
 ## Economic and ecosystem snapshot
 
 | Metric | Value |
 |---|---:|
-| SOL price | $76.95 |
-| SOL price change (24h) | +2.15% |
-| DeFi TVL | $4.90B |
-| Stablecoin supply | $15.37B |
+| SOL price | $76.87 |
+| SOL price change (24h) | +1.22% |
+| DeFi TVL | $4.89B |
+| Stablecoin supply | $15.38B |
 | DEX volume (24h) | $1.82B |
 | DEX volume (7d) | $10.65B |
 | DEX volume change (24h) | +23.44% |
